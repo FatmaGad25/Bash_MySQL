@@ -1,22 +1,22 @@
-if grep -Fxq "$(whoami)" DB_admins.db
+current=$(whoami)
+isexist=$(cat DB_admins.db | grep -w $current | wc -l)
+if [[ $isexist -eq 1 ]]
 then
-	echo "mawgood"
-	echo Please, enter the user you want to add as an ADMIN!
+	echo Please, enter the user you want to delete from ADMINS!
 	read delname
-	if grep -Fxq "$delname" DB_admins.db
+	isexist=$(cat DB_admins.db | grep -w $delname | wc -l)
+	if [[ $isexist -eq 1 ]]
 	then
-
-		sed -i '/$delname/d' DB_admins.db
-		echo "sed -i /$delname/d DB_admins.db"
+		echo $(sed -i /$delname/d DB_admins.db)
 		echo $delname was deleted successfully.
 	else
 		echo This user is not an admin already!
-		echo $delname
-		#echo "sed -i /$delname/d DB_admins.db"
-		echo $(grep -Fxq "$delname" DB_admins.db)
 	fi
 	
 else
     echo "You're ($(whoami)) not an admin and don't have that privilage"
 fi
-
+echo "---------------------------------------"
+echo
+PS3="Please, Choose an option: "
+return

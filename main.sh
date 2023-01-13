@@ -1,8 +1,5 @@
-PS3="Enter a number: "
-x=5
-y=5
-
-select op in add_user del_user add_db del_db exit
+PS3="Please, Choose an option: "
+select op in add_user del_user add_db del_db add_table exit
 do
 if [[ $op == add_user ]]
 then 
@@ -20,8 +17,14 @@ if [[ $op == del_db ]]
 then 
 	. del_db.sh
 fi
+
+if [[ $op == add_table ]]
+then 
+	. create_table.sh
+fi
+
 if [[ $op == exit ]]
 then 
-	exit
+	return
 fi
 done

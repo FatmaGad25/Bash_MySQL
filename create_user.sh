@@ -1,13 +1,13 @@
-if grep -Fxq "$(whoami)" DB_admins.db
+current=$(whoami)
+isexist=$(cat DB_admins.db | grep -w $current | wc -l)
+if [[ $isexist -eq 1 ]]
 then
-	echo "mawgood"
-	echo "grep -Fxq "$(whoami)" DB_admins.db"
 	echo Please, enter the user you want to add as an ADMIN!
 	read adname
-	if grep -Fxq "$adname" DB_admins.db
+	isexist=$(cat DB_admins.db | grep -w $adname | wc -l)
+	if [[ $isexist -eq 1 ]]
 	then
 		echo This user is already an ADMIN!
-		#sed -i "/$adname/d" DB_admins.db
 	else
 		echo $adname>> DB_admins.db
 		echo $adname was added successfully as an ADMIN.
@@ -16,4 +16,7 @@ then
 else
     echo "You're ($(whoami)) not an admin and don't have that privilage"
 fi
-
+echo "---------------------------------------"
+echo
+PS3="Please, Choose an option: "
+return
