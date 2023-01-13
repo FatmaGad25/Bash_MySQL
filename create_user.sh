@@ -9,7 +9,7 @@ then
 		echo This user is already an ADMIN!
 		#sed -i "/$adname/d" DB_admins.db
 	else
-		echo $adname  >> DB_admins.db
+		echo $adname>> DB_admins.db
 		echo $adname was added successfully as an ADMIN.
 	fi
 	

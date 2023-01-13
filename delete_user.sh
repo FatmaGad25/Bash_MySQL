@@ -6,7 +6,8 @@ then
 	if grep -Fxq "$delname" DB_admins.db
 	then
 
-		$"sed -i '/$delname/d' DB_admins.db"
+		sed -i '/$delname/d' DB_admins.db
+		echo "sed -i /$delname/d DB_admins.db"
 		echo $delname was deleted successfully.
 	else
 		echo This user is not an admin already!
