@@ -33,7 +33,7 @@ then
                     do
                         index=$(($index+1))
                         read -p "Enter col name " cname
-                        if [[ $index -eq numofco ]]
+                        if [[ $index -eq $numofco ]]
                         then
                             header=$header$cname
                         else
