@@ -2,8 +2,12 @@ current=$(whoami)
 isexist=$(cat DB_admins.db | grep -w $current | wc -l)
 if [[ $isexist -eq 1 ]]
 then
-	echo Please, enter the user you want to delete from ADMINS!
-	read delname
+	echo "Signed Admins: "
+	cat DB_admins.db 
+	echo ----------------------------
+	read -p "enter Admin name to be deleted:  " delname
+	# echo Please, enter the user you want to delete from ADMINS!
+	# read delname
 	isexist=$(cat DB_admins.db | grep -w $delname | wc -l)
 	if [[ $isexist -eq 1 ]]
 	then
