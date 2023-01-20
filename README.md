@@ -4,8 +4,9 @@
 | Aliaa Adel        | Data Science |
 | Fatma Hussain Gad | Data Science |
 
-> This projects simulates some SQL functionalities like creating and deleteing admins, databases, and tables or manipulating data with insert, select, and delete rows. In this report we'll explain the functionality and made assumptions for each requirements. 
+This projects simulates some SQL functionalities like creating and deleteing admins, databases, and tables or manipulating data with insert, select, and delete rows. In this report we'll explain the functionality and made assumptions for each requirements. 
 
+> All functions in the code are supposed to be working correctly as required in the project discription, any assumptions we made were stated in this readme. 
 
 ## 1. Create User:
 1. Checks if the current user is an admin signed in **DB_admins.db file** or the script will output **You're not an admin and don't have that privilage** won't be able to add new admins. 
