@@ -15,24 +15,24 @@ then
             return
         else
 
-            owner=$(cat ./Databases/$db/owner.txt)
+            owner=$(head -1 ./Databases/$db/owner.txt)
             if [[ $owner == $u ]]
             then
-                read -p "Enter table name " tbname
+                read -p "Enter table name: " tbname
                 isexist=$(ls ./Databases/$db/ | grep -w $tbname | wc -l)
                 if [[ $isexist -eq 1 ]]
                 then
                     echo "This table already exists in this database"
                 else
                     touch ./Databases/$db/$tbname.table
-                    read -p "Number of col " numofco
-                    echo "Creating table $tbname with $numofco columns"
+                    read -p "Enter number of columns: " numofco
+                    echo "Creating table ($tbname) with $numofco columns ....."
                     index=0
                     header=""
                     while [[ $index -lt $numofco ]]
                     do
                         index=$(($index+1))
-                        read -p "Enter col name " cname
+                        read -p "Enter column $index name: " cname
                         if [[ $index -eq $numofco ]]
                         then
                             header=$header$cname
@@ -47,9 +47,18 @@ then
                     PS3="Please, Choose an option: "
                     return
                 fi
+	        else 
+		        echo "You're not the owner of this Database and don't have that privilage" 
             fi
         fi
+        echo "---------------------------------------"
+        echo
+        REPLY=
     done
 else
-echo "user doesn't exist"
+    echo "You're ($(whoami)) not an admin and don't have that privilage"
 fi
+echo "---------------------------------------"
+echo
+PS3="Please, Choose an option: "
+return

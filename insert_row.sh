@@ -18,7 +18,8 @@ then
             owner=$(cat ./Databases/$db/owner.txt)
             if [[ $owner == $current ]]
             then
-                select tbname in $(ls ./Databases/$db) exit
+                PS3="Please, Choose a table: "
+                select tbname in $(ls ./Databases/$db/*.table | xargs -n 1 basename) exit
                 do
                     if [[ $tbname == exit ]]
                     then 
@@ -29,10 +30,10 @@ then
                     else
                         record=""
                         numofco=$(awk -F, '{print NF; exit}' ./Databases/$db/$tbname)
-                        echo $numofco
                         for index in $(seq 1 ${numofco})
                         do 
-                            read -p "Enter col $index value: " value
+                            col=$(head -1 ./Databases/$db/$tbname | cut -d ',' -f$index)
+                            read -p "Enter a value for column $col: " value
                             if [[ index -eq 1 ]]
                             then
                                 duplicate_val=$(cat ./Databases/$db/$tbname | awk -F, -v VAL=$value 'BEGIN {
@@ -51,6 +52,9 @@ then
                                 if [[ $duplicate_val -gt 0 ]]
                                 then
                                     echo "Duplicate Primary Key value"
+                                    echo "---------------------------------------"
+                                    echo
+                                    PS3="Please, Choose an option: "
                                     return
                                 fi
                             fi
@@ -68,13 +72,21 @@ then
                         PS3="Please, Choose an option: "
                         return
                     fi
+                    REPLY=
                 done
             else 
                 echo "You don't have access to this database"
+                echo "---------------------------------------"
+                echo
             fi
         fi
+        REPLY=
     done        
 else
     echo "You don't have that privilage"
 fi
+echo "---------------------------------------"
+echo
+PS3="Please, Choose an option: "
 return
+

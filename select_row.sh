@@ -15,43 +15,57 @@ then
             PS3="Please, Choose an option: "
             return
         else
-            owner=$(cat ./Databases/$db/owner.txt)
-            if [[ $owner == $current ]]
-            then
-                select tbname in $(ls ./Databases/$db) exit
-                do
-                    if [[ $tbname == exit ]]
-                    then 
+            select tbname in $(ls ./Databases/$db/*.table | xargs -n 1 basename) exit
+            do
+                if [[ $tbname == exit ]]
+                then 
+                    echo "---------------------------------------"
+                    echo
+                    PS3="Please, Choose an option: "
+                    return
+                else
+                    PS3="Please, Choose an option: "
+                    select opt in select_all search exit
+                    do
+                        if [[ $opt == exit ]]
+                        then 
+                            echo "---------------------------------------"
+                            echo
+                            PS3="Please, Choose an option: "
+                            return
+                        elif [[ $opt == select_all ]]
+                        then
+                            echo
+                            cat ./Databases/$db/$tbname
+                        else
+                            read -p "Please enter a search keyword: " keyword
+                            if [[ -z "$keyword" ]]
+                            then
+                                echo "Please, Enter a valid search keyword (Not an empty keyword)"
+                            else
+                                output=$(grep -w -i $keyword ./Databases/$db/$tbname | wc -l)
+                                echo
+                                if [[ output -gt 0 ]]
+                                then
+                                    grep -w -i $keyword ./Databases/$db/$tbname
+                                else
+                                    echo No rows selected
+                                fi
+                            fi
+                        fi
                         echo "---------------------------------------"
                         echo
-                        PS3="Please, Choose an option: "
-                        return
-                    else
-                        PS3="Please, Choose an option: "
-                        select opt in select_all search exit
-                        do
-                            if [[ $opt == exit ]]
-                            then 
-                                echo "---------------------------------------"
-                                echo
-                                PS3="Please, Choose an option: "
-                                return
-                            elif [[ $opt == select_all ]]
-                            then
-                                cat ./Databases/$db/$tbname
-                            else
-                                read -p "Please enter a search keyword: " keyword
-                                grep -w $keyword ./Databases/$db/$tbname
-                            fi
-                        done
-                    fi
-                done
-            else 
-                echo "You don't have access to this database"
-            fi
+                        REPLY=
+                    done
+                fi
+            done
         fi
+        REPLY=
     done        
 else
     echo "You don't have that privilage"
 fi
+echo "---------------------------------------"
+echo
+PS3="Please, Choose an option: "
 return
