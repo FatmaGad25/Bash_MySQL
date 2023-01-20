@@ -1,4 +1,4 @@
-#first check if  user check in DB admin 
+#first check if user in DB_admins 
 PS3="Please, Choose a Database: "
 u=$(whoami)
 isexist=$(cat DB_admins.db | grep -w $u | wc -l)
