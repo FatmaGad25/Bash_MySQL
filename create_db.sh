@@ -5,7 +5,7 @@ then
 	# echo "has access"
 	read -p "Enter DB name: " db_name
 	output=$(ls ./Databases | grep -w $db_name | wc -l)
-	if [[ $output -eq 1 ]]
+	if [[ $output -eq 1 ]] #check if the DB already exists 
 	then
 		echo This database already exists
 	else 
