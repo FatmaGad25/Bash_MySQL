@@ -13,7 +13,9 @@
 
 
 ## 2. Delete User:
-Same as create user with the same checks and validations but instead of adding the user to the **DB_admins.db file** it deletes it. 
+1. Same as create user with the same checks and validations but instead of adding the user to the **DB_admins.db file** it deletes it. 
+2. Oracle user can't be deleted.
+
 
 ## 3. Create Database:
 1. Only admins in **DB_admins.db file** can create databases or it will output **You're not an admin and don't have that privilage**. 
@@ -41,7 +43,7 @@ Same as create user with the same checks and validations but instead of adding t
 ## 6. Insert Row:
 - Restriction:
   * To Be a signed admin in **DB_admins.db** as an admin
-  * To Be the owner of the database you're creating the table in.
+  * To Be the owner of the database you're inserting the row into.
   * To not violate the primary key (checks for duplicate values)
 
 - Functionality: 
@@ -50,3 +52,28 @@ Same as create user with the same checks and validations but instead of adding t
   * Asks for the value of each column Successively 
   * If the PK is duplicated, outputs (Duplicated PK) and won't insert the record
   * If not duplicated takes each column separetly and records the row comma-separated.
+
+## 7. Select Rows:
+- Restriction:
+  * To Be a signed admin in **DB_admins.db** as an admin
+  * Any admin can select rows from any database (and any table) not necessarly the owner of the database.
+  * In case of the keyword search, to not enter an empty keyword
+
+- Functionality:
+ * Choose the Database then the table you want to select the data from.
+ * Asks whether you want to select all data in the table or search the rows with a spicific keyword.
+ * The search option is case insensitive and looks for the exact match.
+
+## 8. Delete Rows:
+- Restriction:
+  * To Be a signed admin in **DB_admins.db** as an admin
+  * To Be the owner of the database you're deleting the rows from.
+  * To not enter an empty keyword
+
+- Functionality:
+ * Lists the available database.
+ * If you're the owner, lists the tables in the database you chose.
+ * Asks for a search keyword.
+ * Deletes any row contains the delete keyword.
+ * The delete keyword is case sensitive and deletes the exact match.
+
